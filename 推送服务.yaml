@@ -1,0 +1,12 @@
+payload:
+  - DOMAIN-SUFFIX,push.apple.com
+  - DOMAIN-REGEX,^(alt[1-8]-)?mtalk4?(-(staging|dev))?\\.google\\.com$
+  - IP-CIDR,17.249.0.0/16
+  - IP-CIDR,17.252.0.0/16
+  - IP-CIDR,17.57.114.0/22
+  - IP-CIDR,17.118.128.0/18
+  - IP-CIDR,17.118.20.0/23
+  - IP-CIDR6,2620:149:a44::/48
+  - IP-CIDR6,2403:300:a42::/48
+  - IP-CIDR6,2403:300:a51::/48
+  - IP-CIDR6,2a01:b740:a42::/48
