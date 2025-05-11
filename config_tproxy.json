@@ -1,0 +1,353 @@
+{
+  "log": {
+    "disabled": false,
+    "level": "error",
+    "timestamp": true
+  },
+  
+  "experimental": {
+    "clash_api": {
+      "external_controller": "0.0.0.0:9095",
+      "external_ui": "/etc/sing-box/ui",
+      "secret": "",
+      "external_ui_download_url": "https://gh-proxy.com/https://github.com/Zephyruso/zashboard/archive/refs/heads/gh-pages.zip",
+      "external_ui_download_detour": "🟢 直连"
+    },
+  "cache_file": {
+    "enabled": true,
+    "path": "/etc/sing-box/cache.db",
+    "store_fakeip": true
+    }
+  },
+
+ "dns": 
+ {
+   "servers": 
+   [
+     {"tag": "dns_direct", "address": "https://223.6.6.6/dns-query", "address_strategy": "ipv4_only", "strategy": "ipv4_only", "detour": "🟢 直连"},
+     {"tag": "dns_proxy", "address": "https://1.1.1.1/dns-query", "address_strategy": "prefer_ipv4", "strategy": "prefer_ipv4", "detour": "🌏 国外节点"}
+   ],
+   "rules": 
+   [
+     {"outbound": "any", "server": "dns_direct", "disable_cache": true},
+     {"rule_set": "cn-domain", "server": "dns_direct"},
+     {"rule_set": "proxy", "server": "dns_proxy"}
+   ],
+   "final": "dns_proxy",
+   "strategy": "prefer_ipv4"
+},
+
+"inbounds": [
+  {
+    "type": "tproxy",
+    "tag": "tproxy-in",
+    "listen": "0.0.0.0",
+    "listen_port": 7895
+  }
+],
+
+  "outbounds": [
+    {
+      "type": "direct",
+      "tag": "🟢 直连"
+    },
+    {
+      "tag": "🌏 国外节点", 
+      "type": "selector", 
+      "outbounds": [
+        "♻️ 自动选择", 
+        "🐸 手动切换",         
+        "🇭🇰 香港-自动", 
+        "🇼🇸 台湾-自动", 
+        "🇯🇵 日本-自动", 
+        "🇸🇬 狮城-自动", 
+        "🇺🇲 美国-自动",         
+        "🟢 直连"
+      ]
+    },
+    {
+      "tag": "📹 YouTube", 
+      "type": "selector", 
+      "outbounds": [
+        "♻️ 自动选择", 
+        "🐸 手动切换",         
+        "🇭🇰 香港-自动", 
+        "🇼🇸 台湾-自动", 
+        "🇯🇵 日本-自动", 
+        "🇸🇬 狮城-自动", 
+        "🇺🇲 美国-自动"
+        ]
+    },
+    {
+      "tag": "📲 Telegram", 
+      "type": "selector", 
+      "outbounds": [
+        "♻️ 自动选择", 
+        "🐸 手动切换",         
+        "🇭🇰 香港-自动", 
+        "🇼🇸 台湾-自动", 
+        "🇯🇵 日本-自动", 
+        "🇸🇬 狮城-自动", 
+        "🇺🇲 美国-自动"
+        ]
+    },
+    {
+      "tag": "🎮 游戏服务", 
+      "type": "selector", 
+      "outbounds": [
+        "♻️ 自动选择", 
+        "🐸 手动切换",         
+        "🇭🇰 香港-自动", 
+        "🇼🇸 台湾-自动", 
+        "🇯🇵 日本-自动", 
+        "🇸🇬 狮城-自动", 
+        "🇺🇲 美国-自动"
+        ]
+    },
+    {
+      "tag": "🌀 抖书定位", 
+      "type": "selector", 
+      "outbounds": [
+        "♻️ 自动选择", 
+        "🐸 手动切换",         
+        "🇭🇰 香港-自动", 
+        "🇼🇸 台湾-自动", 
+        "🇯🇵 日本-自动", 
+        "🇸🇬 狮城-自动", 
+        "🇺🇲 美国-自动",         
+        "🟢 直连"
+      ]
+    },
+    {
+      "tag": "🪟 Microsoft", 
+      "type": "selector", 
+      "outbounds": [
+        "♻️ 自动选择", 
+        "🐸 手动切换",         
+        "🇭🇰 香港-自动", 
+        "🇼🇸 台湾-自动", 
+        "🇯🇵 日本-自动", 
+        "🇸🇬 狮城-自动", 
+        "🇺🇲 美国-自动",            
+        "🟢 直连"
+      ]
+    },
+    {
+      "tag": "🐟 漏网之鱼", 
+      "type": "selector", 
+      "outbounds": [
+        "♻️ 自动选择", 
+        "🐸 手动切换",         
+        "🇭🇰 香港-自动", 
+        "🇼🇸 台湾-自动", 
+        "🇯🇵 日本-自动", 
+        "🇸🇬 狮城-自动", 
+        "🇺🇲 美国-自动",         
+        "🟢 直连"
+      ]
+    },
+    {
+      "tag": "♻️ 自动选择", 
+      "type": "urltest", 
+      "providers": [
+        "🌍国外"
+      ], 
+      "url": "https://cp.cloudflare.com/generate_204",
+      "interval": "3m",
+      "tolerance": 100
+    },
+    {
+      "tag": "🐸 手动切换", 
+      "type": "selector", 
+      "providers": [
+        "🌍国外"
+      ]
+    },
+    {
+      "tag": "🇭🇰 香港-自动", 
+      "type": "urltest",
+      "url": "https://cp.cloudflare.com/generate_204",
+      "interval": "3m",
+      "tolerance": 100,
+      "providers": [
+        "🌍国外"
+      ],  
+      "include": "🇭🇰"
+    }, 
+    {
+      "tag": "🇼🇸 台湾-自动", 
+      "type": "urltest",
+      "url": "https://cp.cloudflare.com/generate_204",
+      "interval": "3m",
+      "tolerance": 100, 
+      "providers": [
+        "🌍国外"
+      ],  
+      "include": "🇼🇸|🇹🇼"
+    },
+    {
+      "tag": "🇯🇵 日本-自动", 
+      "type": "urltest",
+      "url": "https://cp.cloudflare.com/generate_204",
+      "interval": "3m",
+      "tolerance": 100, 
+      "providers": [
+        "🌍国外"
+      ],
+      "include": "🇯🇵"
+    },
+    {
+      "tag": "🇸🇬 狮城-自动", 
+      "type": "urltest",
+      "url": "https://cp.cloudflare.com/generate_204",
+      "interval": "3m",
+      "tolerance": 100, 
+      "providers": [
+        "🌍国外"
+      ],  
+      "include": "🇸🇬"
+    },
+    {
+      "tag": "🇺🇲 美国-自动", 
+      "type": "urltest",
+      "url": "https://cp.cloudflare.com/generate_204",
+      "interval": "3m",
+      "tolerance": 50,
+      "providers": [
+        "🌍国外"
+      ], 
+      "include": "🇺🇸"
+    }
+  ],
+  
+  "route": 
+ {
+   "auto_detect_interface": true,
+   "final": "🐟 漏网之鱼",
+   "default_mark": 666,
+   "rules": 
+   [
+     {"action": "sniff"},
+     {"protocol": "dns", "action": "hijack-dns"},
+     {"rule_set": ["Anti-Ad", "SystemOTA"], "action": "reject"},
+     {"rule_set": "anti-ip-attribution", "action": "route", "outbound": "🌀 抖书定位"},
+     {"rule_set": ["games-cn", "apple-cn"], "action": "route", "outbound": "🟢 直连"},
+     {"rule_set": "microsoft-cn", "action": "route", "outbound": "🪟 Microsoft"},
+     {"rule_set": "youtube", "action": "route", "outbound": "📹 YouTube"},           
+     {"rule_set": "telegram", "action": "route", "outbound": "📲 Telegram"},
+     {"rule_set": "Game", "action": "route", "outbound": "🎮 游戏服务"},
+     {"rule_set": "proxy", "action": "route", "outbound": "🌏 国外节点"},
+     {"rule_set": ["cn-domain", "cn-ip"], "action": "route", "outbound": "🟢 直连"},
+     {"ip_is_private": true, "outbound": "🟢 直连"}
+   ],
+    
+    "rule_set": [
+      {
+        "type": "remote",
+        "tag": "Anti-Ad",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/privacy-protection-tools/anti-ad.github.io/master/docs/anti-ad-sing-box.srs",
+        "download_detour": "🌏 国外节点",
+        "update_interval": "24h"
+      },
+      {
+        "tag": "apple-cn",
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "🌏 国外节点",
+        "update_interval": "24h",
+        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/apple-cn.srs"
+      },
+      {
+        "tag": "SystemOTA", 
+        "type": "remote", 
+        "format": "binary", 
+        "download_detour": "🌏 国外节点",
+        "update_interval": "24h",
+        "url": "https://cdn.jsdelivr.net/gh/senshinya/singbox_ruleset@main/rule/SystemOTA/SystemOTA.srs"
+      },
+      {
+        "tag": "Game", 
+        "type": "remote", 
+        "format": "binary", 
+        "download_detour": "🌏 国外节点",
+        "update_interval": "24h",
+        "url": "https://cdn.jsdelivr.net/gh/senshinya/singbox_ruleset@main/rule/Game/Game.srs"
+      },
+      {
+        "tag": "games-cn",
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "🌏 国外节点",
+        "update_interval": "24h",
+        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/games-cn.srs"
+      },
+      {
+        "tag": "youtube", 
+        "type": "remote", 
+        "format": "binary", 
+        "download_detour": "🌏 国外节点",
+        "update_interval": "24h",
+        "url": "https://cdn.jsdelivr.net/gh/senshinya/singbox_ruleset@main/rule/YouTube/YouTube.srs"
+      },
+      {
+        "tag": "telegram", 
+        "type": "remote", 
+        "format": "binary", 
+        "download_detour": "🌏 国外节点",
+        "update_interval": "24h",
+        "url": "https://cdn.jsdelivr.net/gh/senshinya/singbox_ruleset@main/rule/Telegram/Telegram.srs"
+      },
+      {
+        "tag": "microsoft-cn",
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "🌏 国外节点",
+        "update_interval": "24h",
+        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/microsoft-cn.srs"
+      },
+      {
+        "tag": "proxy",
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "🌏 国外节点",
+        "update_interval": "24h",
+        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/proxy.srs"
+      },
+      {
+        "tag": "anti-ip-attribution",
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "🌏 国外节点",
+        "update_interval": "24h",
+        "url": "https://raw.githubusercontent.com/Karaokechen/anti-ip-attribution/main/new-anti-ip-attribution.srs"
+      },
+      {
+        "tag": "cn-domain",
+        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/cn.srs",
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "🌏 国外节点",
+        "update_interval": "24h"
+      },
+      {
+        "tag": "cn-ip",
+        "url": "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/cnip.srs",
+        "type": "remote",
+        "format": "binary",
+        "download_detour": "🌏 国外节点",
+        "update_interval": "24h"
+      }
+    ]
+  },
+
+  "providers": [
+    {
+      "tag": "🌍国外",
+      "type": "remote",
+      "url": "http://192.168.1.10:3001/2cXaAxRGfddmGz2yx1wA/download/collection/%F0%9F%8C%8F%E5%9B%BD%E5%A4%96?target=sing-box",
+      "update_interval": "1h",
+      "download_detour": "🟢 直连"
+    }
+  ]
+}
